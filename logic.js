@@ -20,8 +20,8 @@ let operation = null;
 
 function operate(firstNumber, secondNumber, sign) {
     console.log(`original firstNumber: ${firstNumber}, sign: ${sign}, original secondNumber: ${secondNumber}`);
-    firstNumber = +firstNumber;
-    secondNumber = +secondNumber;
+    firstNumber = +firstNumber.join("");
+    secondNumber = +secondNumber.join("");
     console.log(`firstNumber typeof: ${typeof (firstNumber)}, firstNumber = ${firstNumber}, secondNumber typeof: ${typeof (secondNumber)}, secondNumber = ${secondNumber}`);
     if (sign === "+") return add(firstNumber, secondNumber);
     else if (sign === "-") return subtract(firstNumber, secondNumber);
