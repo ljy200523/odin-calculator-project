@@ -14,19 +14,19 @@ function divide(a, b) {
     return a / b;
 }
 
-let a = [];
-let b = [];
-let operator = null;
+let firstNumber = [];
+let secondNumber = [];
+let operation = null;
 
-function operate(a, b, sign) {
-    console.log(`original a: ${a}, sign: ${sign}, original b: ${b}`);
-    a = +a;
-    b = +b;
-    console.log(`a typeof: ${typeof (a)}, a = ${a}, b typeof: ${typeof (b)}, b = ${b}`);
-    if (sign === "+") return add(a, b);
-    else if (sign === "-") return subtract(a, b);
-    else if (sign === "*") return multiply(a, b);
-    else if (sign === "/") return divide(a, b);
+function operate(firstNumber, secondNumber, sign) {
+    console.log(`original firstNumber: ${firstNumber}, sign: ${sign}, original secondNumber: ${secondNumber}`);
+    firstNumber = +firstNumber;
+    secondNumber = +secondNumber;
+    console.log(`firstNumber typeof: ${typeof (firstNumber)}, firstNumber = ${firstNumber}, secondNumber typeof: ${typeof (secondNumber)}, secondNumber = ${secondNumber}`);
+    if (sign === "+") return add(firstNumber, secondNumber);
+    else if (sign === "-") return subtract(firstNumber, secondNumber);
+    else if (sign === "*") return multiply(firstNumber, secondNumber);
+    else if (sign === "/") return divide(firstNumber, secondNumber);
 }
 
 const screen = document.querySelector(".screen");
@@ -39,27 +39,28 @@ function updateVariable() {
     buttons.forEach(button => {
         button.addEventListener("click", (event) => {
             screen.textContent += event.target.textContent;
-            if (operator === null) {
-                a.push(event.target.textContent);
+            if (operation === null) {
+                firstNumber.push(event.target.textContent);
             }
             else {
-                b.push(event.target.textContent);
+                secondNumber.push(event.target.textContent);
             }
         });
     });
     operators.forEach(operator => {
         operator.addEventListener("click", (event) => {
             screen.textContent += event.target.textContent;
-            operator = event.target.textContent;
+            operation = event.target.textContent;
         });
     });
     equal.addEventListener("click", (event) => {
-        let result = operate(a, b, operator);
+        let result = operate(firstNumber, secondNumber, operation);
+        console.log(result, typeof (result));
         screen.textContent = `= ${result}`;
     });
     clear.addEventListener("click", () => {
-        a.length = 0;
-        b.length = 0;
+        firstNumber.length = 0;
+        secondNumber.length = 0;
         screen.textContent = "";
     });
 }
