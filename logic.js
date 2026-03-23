@@ -23,23 +23,27 @@ function operate(a, b, operator) {
 }
 
 const screen = document.querySelector(".screen");
-const buttons = Array.from(document.querySelectorAll(".buttons"));
-const operators = Array.from(document.querySelectorAll(".operators"));
+const buttons = Array.from(document.querySelectorAll(".button"));
+const operators = Array.from(document.querySelectorAll(".operators .button"));
+
 
 
 function updateVariable() {
-        buttons.addEventListener("click", (event) => {
+    buttons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            screen.textContent += event.target.textContent;
+            });
+    })
         if (operator === null) {
-        screen.textContent = event.target.textContent;
         a.push(event.target.textContent);
         }
         else {
-        screen.textContent = event.target.textContent;
         b.push(event.target.textContent);
         }
-    })
-    operators.addEventListener("click", (event) => {
-        screen.textContent = event.target.textContent;
-        operator = event.target.textContent;
+    operators.forEach(operator => {
+        operator.addEventListener("click", (event) => {
+            screen.textContent = event.target.textContent;
+            operator = event.target.textContent;
+        })
     })
 }
