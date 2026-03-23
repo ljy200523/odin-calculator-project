@@ -16,7 +16,7 @@ function divide(a, b) {
 
 let a = [];
 let b = [];
-let operator;
+let operator = null;
 
 function operate(a, b, operator) {
     return operator(a, b);
@@ -32,18 +32,20 @@ function updateVariable() {
     buttons.forEach(button => {
         button.addEventListener("click", (event) => {
             screen.textContent += event.target.textContent;
-            });
-    })
-        if (operator === null) {
-        a.push(event.target.textContent);
-        }
-        else {
-        b.push(event.target.textContent);
-        }
+            if (operator === null) {
+                a.push(event.target.textContent);
+            }
+            else {
+                b.push(event.target.textContent);
+            }
+        });
+    });
     operators.forEach(operator => {
         operator.addEventListener("click", (event) => {
-            screen.textContent = event.target.textContent;
+            screen.textContent += event.target.textContent;
             operator = event.target.textContent;
-        })
-    })
+        });
+    });
 }
+
+updateVariable();

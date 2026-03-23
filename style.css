@@ -11,18 +11,25 @@ div {
     display: flex;
 }
 
-.numbers, .operators {
+.numbers,
+.operators {
     flex-direction: column;
 }
 
-.button, .clear {
+.button,
+.clear {
     border: 1px solid black;
-    padding: 10px 
+    padding: 10px;
+    transition: background-color 0.1s ease;
+    /* Makes the transition smooth */
+}
+
+.button:hover,
+.clear:hover {
+    background-color: rgb(88, 144, 216);
 }
 
 .screen {
     border: 1px solid black;
     padding: 20px 60px;
 }
-
-
