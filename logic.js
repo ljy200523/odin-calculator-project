@@ -18,8 +18,15 @@ let a = [];
 let b = [];
 let operator = null;
 
-function operate(a, b, operator) {
-    return operator(a, b);
+function operate(a, b, sign) {
+    console.log(`original a: ${a}, sign: ${sign}, original b: ${b}`);
+    a = +a;
+    b = +b;
+    console.log(`a typeof: ${typeof (a)}, a = ${a}, b typeof: ${typeof (b)}, b = ${b}`);
+    if (sign === "+") return add(a, b);
+    else if (sign === "-") return subtract(a, b);
+    else if (sign === "*") return multiply(a, b);
+    else if (sign === "/") return divide(a, b);
 }
 
 const screen = document.querySelector(".screen");
@@ -47,9 +54,12 @@ function updateVariable() {
         });
     });
     equal.addEventListener("click", (event) => {
-        screen.textContent = operate(a, b, operator)
+        let result = operate(a, b, operator);
+        screen.textContent = `= ${result}`;
     });
     clear.addEventListener("click", () => {
+        a.length = 0;
+        b.length = 0;
         screen.textContent = "";
     });
 }
