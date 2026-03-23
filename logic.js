@@ -61,6 +61,7 @@ function updateVariable() {
     clear.addEventListener("click", () => {
         firstNumber.length = 0;
         secondNumber.length = 0;
+        operation = null;
         screen.textContent = "";
     });
 }
