@@ -24,9 +24,9 @@ function operate(a, b, operator) {
 
 const screen = document.querySelector(".screen");
 const buttons = Array.from(document.querySelectorAll(".button"));
-const operators = Array.from(document.querySelectorAll(".operators .button"));
-
-
+const operators = Array.from(document.querySelectorAll(".operators .operator"));
+const equal = document.querySelector(".equal");
+const clear = document.querySelector(".clear");
 
 function updateVariable() {
     buttons.forEach(button => {
@@ -45,6 +45,12 @@ function updateVariable() {
             screen.textContent += event.target.textContent;
             operator = event.target.textContent;
         });
+    });
+    equal.addEventListener("click", (event) => {
+        screen.textContent = operate(a, b, operator)
+    });
+    clear.addEventListener("click", () => {
+        screen.textContent = "";
     });
 }
 
