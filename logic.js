@@ -47,7 +47,7 @@ function updateVariable() {
     buttons.forEach(button => {
         button.addEventListener("click", (event) => {
             screen.textContent += event.target.textContent;
-            if (firstNumber.length === 0 && operation === null) {
+            if (operation === null) {
                 firstNumber.push(event.target.textContent);
                 console.log(`firstNumber = ${firstNumber}`);
             }
