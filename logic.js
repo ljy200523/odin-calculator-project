@@ -59,9 +59,9 @@ function updateVariable() {
         operator.addEventListener("click", (event) => {
             if (operation != null && secondNumber.length !== 0) {
                 let result = operate(firstNumber, secondNumber, operation);
-                firstNumber = `${result}`, secondNumber = "", operation = null, restartState = true;
+                firstNumber = `${result}`, secondNumber = "", operation = event.target.textContent, restartState = true;
                 console.log("Result: ", result);
-                screen.textContent = `= ${result}`;
+                screen.textContent = `= ${result}` + event.target.textContent;
             }
             else if (operation != null) {
                 screen.textContent = screen.textContent.slice(0, -1) + event.target.textContent;
