@@ -1,7 +1,7 @@
 let firstNumber = [];
 let secondNumber = [];
 let operation = null;
-let calculatedValue;
+let restartState = false;
 
 const screen = document.querySelector(".screen");
 const buttons = Array.from(document.querySelectorAll(".button"));
@@ -10,10 +10,10 @@ const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
 
 
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+const add = (a, b) => (a + b).toFixed(2);
+const subtract = (a, b) => (a - b).toFixed(2);
+const multiply = (a, b) => (a * b).toFixed(2);
+const divide = (a, b) => (a / b).toFixed(2);
 
 
 function operate(firstNumber, secondNumber, sign) {
@@ -31,14 +31,22 @@ function operate(firstNumber, secondNumber, sign) {
 function updateVariable() {
     buttons.forEach(button => {
         button.addEventListener("click", (event) => {
-            screen.textContent += event.target.textContent;
-            if (operation === null) {
-                firstNumber.push(event.target.textContent);
-                console.log(`firstNumber = ${firstNumber}`);
-            }
-            else {
+            if (operation !== null) {
+                screen.textContent += event.target.textContent;
                 secondNumber.push(event.target.textContent);
                 console.log(`secondNumber = ${secondNumber}`);
+            }
+            else if (restartState !== false) {
+                firstNumber = [event.target.textContent];
+                secondNumber.length = 0;
+                operation = null;
+                screen.textContent = event.target.textContent;
+                restartState = true;
+            }
+            else {
+                screen.textContent += event.target.textContent;
+                firstNumber.push(event.target.textContent);
+                console.log(`firstNumber = ${firstNumber}`);
             }
         });
     });
@@ -46,17 +54,18 @@ function updateVariable() {
         operator.addEventListener("click", (event) => {
             if (operation != null) {
                 let result = operate(firstNumber, secondNumber, operation);
-                firstNumber = [result], secondNumber.length = 0, operation = null;
+                firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
                 console.log("Result: ", result);
                 screen.textContent = `= ${result}`;
             }
             screen.textContent += event.target.textContent;
             operation = event.target.textContent;
+            restartState = false;
         });
     });
     equal.addEventListener("click", (event) => {
         let result = operate(firstNumber, secondNumber, operation);
-        firstNumber = [result], secondNumber.length = 0, operation = null;
+        firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
         console.log("Result: ", result);
         screen.textContent = `= ${result}`;
     });
@@ -64,6 +73,7 @@ function updateVariable() {
         firstNumber.length = 0;
         secondNumber.length = 0;
         operation = null;
+        restartState = false;
         screen.textContent = "";
         console.log("CLEARED");
     });
