@@ -20,26 +20,11 @@ function operate(firstNumber, secondNumber, sign) {
     firstNumber = +firstNumber.join("");
     secondNumber = +secondNumber.join("");
     console.log(`AFTER CONVERSION: firstNumber=${firstNumber}, secondNumber=${secondNumber}, sign=${sign}`);
-    if (sign === "+") {
-        calculatedValue = add(firstNumber, secondNumber);
-        firstNumber = [calculatedValue], secondNumber.length = 0, operation = null;
-        return calculatedValue;
-    }
-    else if (sign === "-") {
-        calculatedValue = subtract(firstNumber, secondNumber);
-        firstNumber = [calculatedValue], secondNumber.length = 0, operation = null;
-        return calculatedValue;
-    }
-    else if (sign === "*") {
-        calculatedValue = multiply(firstNumber, secondNumber);
-        firstNumber = [calculatedValue], secondNumber.length = 0, operation = null;
-        return calculatedValue;
-    }
-    else if (sign === "/") {
-        calculatedValue = divide(firstNumber, secondNumber);
-        firstNumber = [calculatedValue], secondNumber.length = 0, operation = null;
-        return calculatedValue;
-    }
+
+    if (sign === "+") return add(firstNumber, secondNumber);
+    else if (sign === "-") return subtract(firstNumber, secondNumber);
+    else if (sign === "*") return multiply(firstNumber, secondNumber);
+    else if (sign === "/") return divide(firstNumber, secondNumber);
 };
 
 
