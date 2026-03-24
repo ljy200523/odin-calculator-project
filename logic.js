@@ -8,12 +8,17 @@ const buttons = Array.from(document.querySelectorAll(".button"));
 const operators = Array.from(document.querySelectorAll(".operators .operator"));
 const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
+const backspace = document.querySelector(".backspace");
 
+function toDecimal(num) {
+    if (num % 1 !== 0) return num.toFixed(2);
+    else return num;
+}
 
-const add = (a, b) => (a + b).toFixed(2);
-const subtract = (a, b) => (a - b).toFixed(2);
-const multiply = (a, b) => (a * b).toFixed(2);
-const divide = (a, b) => (a / b).toFixed(2);
+const add = (a, b) => toDecimal((a + b));
+const subtract = (a, b) => toDecimal((a - b));
+const multiply = (a, b) => toDecimal((a * b));
+const divide = (a, b) => toDecimal((a / b));
 
 
 function operate(firstNumber, secondNumber, sign) {
@@ -71,12 +76,10 @@ function updateVariable() {
         });
     });
     equal.addEventListener("click", (event) => {
-        if (firstNumber && secondNumber && operation) {
-            let result = operate(firstNumber, secondNumber, operation);
-            firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
-            console.log("Result: ", result);
-            screen.textContent = `= ${result}`;
-        }
+        let result = operate(firstNumber, secondNumber, operation);
+        firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
+        console.log("Result: ", result);
+        screen.textContent = `= ${result}`;
     });
     clear.addEventListener("click", () => {
         firstNumber.length = 0;
@@ -85,6 +88,18 @@ function updateVariable() {
         restartState = false;
         screen.textContent = "";
         console.log("CLEARED");
+    });
+    backspace.addEventListener("click", () => {
+        screen.textContent = screen.textContent.slice(0, -1);
+        if (secondNumber != 0) {
+            secondNumber = secondNumber.slice(0, -1);
+            return secondNumber;
+        }
+        else if (operation) return operation = null;
+        else if (firstNumber) {
+            firstNumber = firstNumber.slice(0, -1);
+            return firstNumber;
+        }
     });
 }
 
