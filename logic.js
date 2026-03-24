@@ -71,10 +71,12 @@ function updateVariable() {
         });
     });
     equal.addEventListener("click", (event) => {
-        let result = operate(firstNumber, secondNumber, operation);
-        firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
-        console.log("Result: ", result);
-        screen.textContent = `= ${result}`;
+        if (firstNumber && secondNumber && operation) {
+            let result = operate(firstNumber, secondNumber, operation);
+            firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
+            console.log("Result: ", result);
+            screen.textContent = `= ${result}`;
+        }
     });
     clear.addEventListener("click", () => {
         firstNumber.length = 0;
