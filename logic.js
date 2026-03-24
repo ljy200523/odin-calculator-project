@@ -52,15 +52,22 @@ function updateVariable() {
     });
     operators.forEach(operator => {
         operator.addEventListener("click", (event) => {
-            if (operation != null) {
+            if (operation != null && secondNumber.length !== 0) {
                 let result = operate(firstNumber, secondNumber, operation);
                 firstNumber = [result], secondNumber.length = 0, operation = null, restartState = true;
                 console.log("Result: ", result);
                 screen.textContent = `= ${result}`;
             }
-            screen.textContent += event.target.textContent;
-            operation = event.target.textContent;
-            restartState = false;
+            else if (operation != null) {
+                screen.textContent = screen.textContent.slice(0, -1) + event.target.textContent;
+                operation = event.target.textContent;
+                restartState = false;
+            }
+            else {
+                screen.textContent += event.target.textContent;
+                operation = event.target.textContent;
+                restartState = false;
+            }
         });
     });
     equal.addEventListener("click", (event) => {
@@ -79,4 +86,8 @@ function updateVariable() {
     });
 }
 
+// function isValid(firstNumber, secondNumber, sign) {
+//     if (secondNumber === 0 && sign === "/") return false;
+//     if (firstNumber && secondNumber && sign) return true;
+// }
 updateVariable();
