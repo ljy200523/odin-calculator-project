@@ -9,6 +9,7 @@ const operators = Array.from(document.querySelectorAll(".operators .operator"));
 const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
 const backspace = document.querySelector(".backspace");
+const dot = document.querySelector(".dot");
 
 function toDecimal(num) {
     if (num % 1 !== 0) return num.toFixed(2);
@@ -36,19 +37,19 @@ function operate(firstNumber, secondNumber, sign) {
 function updateVariable() {
     buttons.forEach(button => {
         button.addEventListener("click", (event) => {
-            if (operation !== null) {
+            if (operation !== null) { //Append to secondNumber
                 screen.textContent += event.target.textContent;
                 secondNumber += (event.target.textContent);
                 console.log(`secondNumber = ${secondNumber}`);
             }
-            else if (restartState !== false) {
+            else if (restartState === true) {
                 firstNumber = [event.target.textContent];
                 secondNumber = "";
                 operation = null;
                 screen.textContent = event.target.textContent;
-                restartState = true;
+                restartState = false;
             }
-            else {
+            else { //Append to firstNumber
                 screen.textContent += event.target.textContent;
                 firstNumber += (event.target.textContent);
                 console.log(`firstNumber = ${firstNumber}`);
@@ -58,6 +59,7 @@ function updateVariable() {
     operators.forEach(operator => {
         operator.addEventListener("click", (event) => {
             if (operation != null && secondNumber.length !== 0) {
+                //Calculate existing statement
                 let result = operate(firstNumber, secondNumber, operation);
                 firstNumber = `${result}`, secondNumber = "", operation = event.target.textContent, restartState = true;
                 console.log("Result: ", result);
@@ -101,8 +103,17 @@ function updateVariable() {
             console.log("firstNumber is", firstNumber);
             return firstNumber;
         }
+        // dot.addEventListener("click", (event) => {
+        //     if ()
+        // })
     });
 }
+// Keyboard support
+document.addEventListener("keydown", (event) => {
+    const keyName = event.key;
+    const regex = /[0-9+\-*\/%]/;
+    if (regex.test(keyName)) return keyName;
+});
 
 // function isValid(firstNumber, secondNumber, sign) {
 //     if (secondNumber === 0 && sign === "/") return false;

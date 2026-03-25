@@ -17,6 +17,7 @@ div {
 }
 
 .button,
+.dot,
 .operator,
 .equal,
 .backspace,
@@ -28,7 +29,7 @@ div {
 }
 
 .button:hover,
-.operator:hover,
+.dot:hover .operator:hover,
 .equal:hover,
 .backspace:hover,
 .clear:hover {
