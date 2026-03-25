@@ -64,6 +64,10 @@ function updateVariable() {
                     alert("Snarky Error Message: No divide by 0");
                     return;
                 }
+                else if (operation === null) {
+                    alert("Snarky Error Message: No Operator");
+                    return;
+                }
                 else {
                     let result = operate(firstNumber, secondNumber, operation);
                     firstNumber = `${result}`, secondNumber = "", operation = event.target.textContent, restartState = true;
@@ -86,6 +90,10 @@ function updateVariable() {
     equal.addEventListener("click", (event) => {
         if (secondNumber == "0" && operation == "/") {
             alert("Snarky Error Message: No divide by 0");
+            return;
+        }
+        else if (operation === null) {
+            alert("Snarky Error Message: No Operator");
             return;
         }
         else {
