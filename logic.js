@@ -30,7 +30,10 @@ function operate(firstNumber, secondNumber, sign) {
     if (sign === "+") return add(firstNumber, secondNumber);
     else if (sign === "-") return subtract(firstNumber, secondNumber);
     else if (sign === "*") return multiply(firstNumber, secondNumber);
-    else if (sign === "/") return divide(firstNumber, secondNumber);
+    else if (sign === "/") {
+        if (secondNumber === 0) return alert("Snarky Error Message: No divide by 0")
+        else return divide(firstNumber, secondNumber);
+    }
 };
 
 
@@ -118,9 +121,25 @@ function updateVariable() {
 // Keyboard support
 document.addEventListener("keydown", (event) => {
     const keyName = event.key;
-    const regex = /^[0-9+\-*/%.]+$/;
-    if (regex.test(keyName)) return keyName;
+    if (/^[0-9.]$/.test(keyName)) triggerButton(keyName);
+    else if (/^[+\-*/]$/.test(keyName)) triggerOperator(keyName);
+    else if (keyName === "Enter") triggerEqual();
+    else if (keyName === "=") triggerEqual();
+    else if (keyName === "Backspace") triggerBackspace();
+    else if (keyName === "Escape") triggerClear();
 });
+
+function triggerButton(value) {
+    const button = buttons.find(element => element.textContent == value)
+    if (button) button.click();
+}
+function triggerOperator(value) {
+    const operator = operators.find(element => element.textContent === value)
+    if (operator) operator.click();
+}
+let triggerEqual = () => equal.click();
+let triggerBackspace = () => backspace.click();
+let triggerClear = () => clear.click();
 
 // function isValid(firstNumber, secondNumber, sign) {
 //     if (secondNumber === 0 && sign === "/") return false;
