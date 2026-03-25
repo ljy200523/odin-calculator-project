@@ -30,10 +30,7 @@ function operate(firstNumber, secondNumber, sign) {
     if (sign === "+") return add(firstNumber, secondNumber);
     else if (sign === "-") return subtract(firstNumber, secondNumber);
     else if (sign === "*") return multiply(firstNumber, secondNumber);
-    else if (sign === "/") {
-        if (secondNumber === 0) return alert("Snarky Error Message: No divide by 0")
-        else return divide(firstNumber, secondNumber);
-    }
+    else if (sign === "/") return divide(firstNumber, secondNumber);
 };
 
 
@@ -63,10 +60,16 @@ function updateVariable() {
         operator.addEventListener("click", (event) => {
             if (operation != null && secondNumber.length !== 0) {
                 //Calculate existing statement
-                let result = operate(firstNumber, secondNumber, operation);
-                firstNumber = `${result}`, secondNumber = "", operation = event.target.textContent, restartState = true;
-                console.log("Result: ", result);
-                screen.textContent = `= ${result}` + event.target.textContent;
+                if (secondNumber == "0" && operation == "/") {
+                    alert("Snarky Error Message: No divide by 0");
+                    return;
+                }
+                else {
+                    let result = operate(firstNumber, secondNumber, operation);
+                    firstNumber = `${result}`, secondNumber = "", operation = event.target.textContent, restartState = true;
+                    console.log("Result: ", result);
+                    screen.textContent = `= ${result}` + event.target.textContent;
+                }
             }
             else if (operation != null) {
                 screen.textContent = screen.textContent.slice(0, -1) + event.target.textContent;
@@ -81,10 +84,16 @@ function updateVariable() {
         });
     });
     equal.addEventListener("click", (event) => {
-        let result = operate(firstNumber, secondNumber, operation);
-        firstNumber = `${result}`, secondNumber = "", operation = null, restartState = true;
-        console.log("Result: ", result);
-        screen.textContent = `= ${result}`;
+        if (secondNumber == "0" && operation == "/") {
+            alert("Snarky Error Message: No divide by 0");
+            return;
+        }
+        else {
+            let result = operate(firstNumber, secondNumber, operation);
+            firstNumber = `${result}`, secondNumber = "", operation = null, restartState = true;
+            console.log("Result: ", result);
+            screen.textContent = `= ${result}`;
+        }
     });
     clear.addEventListener("click", () => {
         firstNumber = "";
@@ -141,8 +150,5 @@ let triggerEqual = () => equal.click();
 let triggerBackspace = () => backspace.click();
 let triggerClear = () => clear.click();
 
-// function isValid(firstNumber, secondNumber, sign) {
-//     if (secondNumber === 0 && sign === "/") return false;
-//     if (firstNumber && secondNumber && sign) return true;
-// }
+
 updateVariable();
