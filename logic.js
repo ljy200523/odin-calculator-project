@@ -103,15 +103,22 @@ function updateVariable() {
             console.log("firstNumber is", firstNumber);
             return firstNumber;
         }
-        // dot.addEventListener("click", (event) => {
-        //     if ()
-        // })
+    });
+    dot.addEventListener("click", (event) => {
+        if (!firstNumber.includes(".")) {
+            screen.textContent += event.target.textContent;
+            firstNumber += (event.target.textContent);
+        }
+        else if (operation && !secondNumber.includes(".")) {
+            screen.textContent += event.target.textContent;
+            secondNumber += (event.target.textContent);
+        }
     });
 }
 // Keyboard support
 document.addEventListener("keydown", (event) => {
     const keyName = event.key;
-    const regex = /[0-9+\-*\/%]/;
+    const regex = /^[0-9+\-*/%.]+$/;
     if (regex.test(keyName)) return keyName;
 });
 
